@@ -1,0 +1,51 @@
+version: "3.5"
+name: nats_cluster
+
+x-common-config: &common_config
+  image: nats:${NATS_IMAGE_VERSION}
+  env_file: .env
+  networks: ["nats"]
+  volumes:
+    - ./config:/etc/nats
+    - "js-data:/data"
+
+services:
+  cluster1:
+    <<: *common_config
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: "-D -js -sd /data -n cluster1 -c /etc/nats/nats.conf --http_port 8222"
+
+  cluster2:
+    <<: *common_config
+    ports:
+      - "4223:4223"
+    command: "-p 4223 -D -js -sd /data -n cluster2 -c /etc/nats/nats.conf"
+    depends_on: ["cluster1"]
+  cluster3:
+    <<: *common_config
+    ports:
+      - "4224:4224"
+    command: "-p 4224 -D -js -sd /data -n cluster3 -c /etc/nats/nats.conf"
+    depends_on: ["cluster1"]
+  cluster4:
+    <<: *common_config
+    ports:
+      - "4225:4225"
+    command: "-p 4225 -D -js -sd /data -n cluster4 -c /etc/nats/nats.conf"
+    depends_on: ["cluster1"]
+  cluster5:
+    <<: *common_config
+    ports:
+      - "4226:4226"
+    command: "-p 4226 -D -js -sd /data -n cluster5 -c /etc/nats/nats.conf"
+    depends_on: ["cluster1"]
+
+networks:
+  nats:
+    name: nats
+    external: true
+
+volumes:
+  js-data:

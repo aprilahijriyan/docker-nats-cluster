@@ -1,4 +1,5 @@
 .env
+.nsc
 .vscode
 *.deb
 resolver.conf

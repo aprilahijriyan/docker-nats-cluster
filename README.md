@@ -1,4 +1,8 @@
-# Installation
+# Docker NATS Cluster
+
+A simple docker compose collection for setting up a NATS Cluster.
+
+## Setup
 
 * Create a `.env` file with the following:
     * NATS_IMAGE_VERSION
@@ -8,6 +12,17 @@
 * Create docker network
 
     `docker network create nats`
+
+* Install tools
+
+    `./scripts/init_tools.sh`
+
+* Setup NATS environment
+
+    ```
+    nsc init -i
+    ./scripts/init_resolver.sh
+    ```
 
 * Run the container
 

@@ -59,9 +59,9 @@ async def main():
     )
     print("Connected to NATS!")
     print("Listening for RPC requests...")
-    await nc.subscribe("rpc.hello", cb=handler)
-    await nc.subscribe("rpc.echo", cb=handler)
-    await nc.subscribe("rpc.ping", cb=handler)
+    await nc.subscribe("rpc.hello", cb=handler, queue="hello_queue")
+    await nc.subscribe("rpc.echo", cb=handler, queue="echo_queue")
+    await nc.subscribe("rpc.ping", cb=handler, queue="ping_queue")
 
 
 if __name__ == '__main__':

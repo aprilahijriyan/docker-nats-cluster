@@ -27,3 +27,7 @@ A simple docker compose collection for setting up a NATS Cluster.
 * Run the container
 
     `docker-compose -f nats-cluster.yml up -d`
+
+## Links
+
+Find out more about NATS here https://nats.io/
